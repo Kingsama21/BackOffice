@@ -197,23 +197,14 @@ async function createProject(project) {
     const token = getToken();
     if (!token) throw new Error("No autenticado");
 
-    const user = getUser();
-    if (!user) throw new Error("Usuario no encontrado. Inicia sesión de nuevo.");
-
-    // Normalizar userId (usar id o _id según lo que exista)
-    const userId = user.id || user._id;
-    if (!userId) throw new Error("Usuario no válido: falta userId en los datos de sesión.");
-
+    // El backend obtiene el userId del token, NO necesitamos enviarlo en el payload
     const res = await fetch(`${API_BASE}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token": token,
       },
-      body: JSON.stringify({
-        ...project,
-        userId: userId,
-      }),
+      body: JSON.stringify(project),
     });
 
     const text = await res.text();
