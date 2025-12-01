@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio - Proyectos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <main class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">Mi Portafolio</h1>
+                <p class="subtitle">Descubre mis proyectos</p>
+            </div>
+        </header>
+
+        <!-- Sección de búsqueda -->
+        <section class="search-section">
+            <div class="search-container">
+                <h2>Buscar Portafolio</h2>
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="itsonId">Ingresa tu Itson ID (6 dígitos):</label>
+                        <input 
+                            type="text" 
+                            id="itsonId" 
+                            placeholder="Ej: 123456" 
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            required
+                        >
+                    </div>
+                    <button type="submit" class="btn-search">Buscar Proyectos</button>
+                </form>
+                <div id="searchMessage" class="search-message"></div>
+            </div>
+        </section>
+
+        <!-- Sección de proyectos -->
+        <section class="projects-section">
+            <div id="projectsContainer" class="projects-grid">
+                <p class="no-projects">Ingresa tu Itson ID para ver tus proyectos</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Mi Portafolio. Todos los derechos reservados.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
