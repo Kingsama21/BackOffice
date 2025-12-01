@@ -1,0 +1,10 @@
+portfolioAPI-main/
+.DS_Store
+node_modules/
+*.log
+.env
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
