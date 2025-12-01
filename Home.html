@@ -68,14 +68,19 @@
       async function initHome() {
         // Proteger acceso: si no hay token, redirigir a Login
         if (!isAuthenticated()) {
-          window.location.replace('Login.html');
+          console.log('No autenticado. Redirigiendo a Login...');
+          setTimeout(() => {
+            window.location.href = 'Login.html';
+          }, 500);
           return;
         }
 
         // Obtener usuario y saludar
         const user = getUser();
-        if (user) {
+        if (user && user.name) {
           document.getElementById('userGreeting').textContent = `Hola, ${user.name}`;
+        } else {
+          document.getElementById('userGreeting').textContent = 'Hola, usuario autenticado';
         }
 
         // Cargar proyectos
