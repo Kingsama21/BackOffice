@@ -11,9 +11,9 @@ html, body {
 }
 
 body {
-  font-family: var(--font-stack);
-  color: var(--text-color);
-  background-image: var(--bg-image);
+  font-family: var(--fuente-principal);
+  color: var(--color-texto);
+  background-image: var(--imagen-fondo);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -29,7 +29,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: var(--overlay);
+  background: var(--superposicion);
   z-index: 0;
 }
 
@@ -37,33 +37,33 @@ body::before {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--ancho-maximo);
   margin: 2rem auto;
   padding: 0 1rem;
 }
 
 .card {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
+  background: var(--fondo-tarjeta);
+  border-radius: var(--radio-tarjeta);
   padding: 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--sombra);
   margin-bottom: 1.5rem;
 }
 
 h1 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: var(--text-color);
+  color: var(--color-texto);
 }
 
 h2 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: var(--text-color);
+  color: var(--color-texto);
 }
 
 .lead {
-  color: var(--muted);
+  color: var(--color-texto-suave);
   font-size: 1rem;
   margin-top: 0.5rem;
 }
@@ -91,12 +91,12 @@ p {
 }
 
 .btn {
-  background: var(--primary);
+  background: var(--color-primario);
   color: white;
 }
 
 .btn:hover {
-  background: var(--primary-dark);
+  background: var(--color-primario-oscuro);
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(43, 108, 176, 0.3);
 }
@@ -114,8 +114,8 @@ p {
 
 /* Project card styles */
 .project-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-2);
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde-suave);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0,0,0,0.08);
@@ -143,7 +143,7 @@ p {
 }
 
 .project-content h3 { font-size: 1.15rem; margin-bottom: 0.35rem; }
-.project-content p { color: var(--muted); margin-bottom: 0.5rem; }
+.project-content p { color: var(--color-texto-suave); margin-bottom: 0.5rem; }
 .project-technologies { margin-top: 0.35rem; }
 .tech-badge { background: rgba(230,238,252,0.9); color: #1e3a8a; padding: 0.25rem 0.6rem; border-radius: 999px; font-weight:600; font-size: 0.8rem; margin-right:0.4rem; }
 
