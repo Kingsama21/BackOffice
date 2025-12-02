@@ -109,7 +109,62 @@ function escapeHtml(str) {
 }
 
 /**
- * Manejar la búsqueda de proyectos
+ * Cargar y mostrar datos personales desde `personal.json` por defecto
+ */
+async function loadPersonal() {
+  try {
+    const res = await fetch('./personal.json');
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : null;
+
+    if (!data) {
+      document.getElementById('personalProfile').innerHTML = '<p>No se encontró personal.json</p>';
+      return;
+    }
+
+    renderProfile(data);
+    renderProjects(data.proyectos || data.projects || []);
+  } catch (err) {
+    console.error('Error cargando personal.json', err);
+    document.getElementById('personalProfile').innerHTML = '<p>Error cargando perfil personal</p>';
+    renderProjects([]);
+  }
+}
+
+/**
+ * Renderizar sección de perfil personal
+ */
+function renderProfile(data) {
+  const container = document.getElementById('personalProfile');
+  const estudios = (data.estudios || []).map(s => `<li>${escapeHtml(s.institucion)} — ${escapeHtml(s.grado)} (${escapeHtml(s.periodo)})</li>`).join('');
+  const trabajos = (data.trabajos || []).map(t => `<li>${escapeHtml(t.empresa)} — ${escapeHtml(t.puesto)} (${escapeHtml(t.periodo)})</li>`).join('');
+  const techs = (data.tecnologias || data.technologies || []).map(t => `<span class="tech-badge">${escapeHtml(t)}</span>`).join(' ');
+
+  container.innerHTML = `
+    <div class="profile">
+      <h2>${escapeHtml(data.nombre || data.name || '')}</h2>
+      <h3>${escapeHtml(data.titulo || '')}</h3>
+      <p>${escapeHtml(data.bio || '')}</p>
+
+      <div class="profile-meta" style="margin-top:1rem;">
+        <strong>Estudios</strong>
+        <ul>${estudios}</ul>
+        <strong>Experiencia</strong>
+        <ul>${trabajos}</ul>
+        <strong>Tecnologías</strong>
+        <div style="margin-top:0.5rem">${techs}</div>
+      </div>
+    </div>
+  `;
+}
+
+// Cargar perfil personal al inicio
+document.addEventListener('DOMContentLoaded', () => {
+  loadPersonal();
+});
+
+/**
+ * Manejar la búsqueda de proyectos (por Itson ID)
  */
 document.getElementById("searchForm").addEventListener("submit", async (e) => {
   e.preventDefault();

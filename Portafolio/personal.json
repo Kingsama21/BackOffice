@@ -1,0 +1,28 @@
+{
+  "nombre": "Rafael García",
+  "titulo": "Desarrollador Frontend / FullStack",
+  "bio": "Estudiante de Ingeniería en Sistemas en ITSON. Me apasiona construir interfaces limpias y conectar frontends con APIs REST.",
+  "estudios": [
+    { "institucion": "ITSON", "grado": "Ingeniería en Sistemas", "periodo": "2021 - Presente" }
+  ],
+  "trabajos": [
+    { "empresa": "Proyecto Freelance", "puesto": "Desarrollador Web", "periodo": "2024" }
+  ],
+  "tecnologias": ["JavaScript", "HTML5", "CSS3", "Node.js", "Express", "MongoDB"],
+  "proyectos": [
+    {
+      "title": "Sistema de Tareas",
+      "description": "Aplicación para gestionar tareas con autenticación y CRUD completo.",
+      "technologies": ["JavaScript", "Node.js", "Express", "MongoDB"],
+      "repository": "https://github.com/Kingsama21/todo-app",
+      "images": ["../background2.jpg"]
+    },
+    {
+      "title": "Portafolio Personal",
+      "description": "Esta página que muestra mis proyectos y datos personales.",
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "repository": "https://github.com/Kingsama21/BackOffice",
+      "images": ["../background2.jpg"]
+    }
+  ]
+}

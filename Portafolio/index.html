@@ -20,20 +20,27 @@
             </div>
         </header>
 
-        <!-- Sección de búsqueda -->
+        <!-- Sección personal (por defecto) -->
+        <section id="personalSection" class="card" style="margin-bottom:1.5rem;">
+            <div id="personalProfile">
+                <!-- El contenido se genera desde script.js cargando personal.json -->
+                <p>Cargando mi perfil...</p>
+            </div>
+        </section>
+
+        <!-- Sección de búsqueda (opcional) -->
         <section class="search-section">
             <div class="search-container">
-                <h2>Buscar Portafolio</h2>
+                <h2>Buscar Portafolio por Itson ID</h2>
                 <form id="searchForm">
                     <div class="form-group">
-                        <label for="itsonId">Ingresa tu Itson ID (6 dígitos):</label>
+                        <label for="itsonId">Ingresa el Itson ID (6 dígitos):</label>
                         <input 
                             type="text" 
                             id="itsonId" 
                             placeholder="Ej: 123456" 
                             maxlength="6"
                             pattern="[0-9]{6}"
-                            required
                         >
                     </div>
                     <button type="submit" class="btn-search">Buscar Proyectos</button>
@@ -42,10 +49,10 @@
             </div>
         </section>
 
-        <!-- Sección de proyectos -->
+        <!-- Sección de proyectos (usada tanto para personal como para búsqueda) -->
         <section class="projects-section">
             <div id="projectsContainer" class="projects-grid">
-                <p class="no-projects">Ingresa tu Itson ID para ver tus proyectos</p>
+                <p class="no-projects">Cargando proyectos...</p>
             </div>
         </section>
 
