@@ -65,7 +65,78 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('formTitle').textContent = 'Agregar Nuevo Proyecto';
       document.getElementById('projectForm').reset();
       document.getElementById('projectId').value = '';
+      // reset image preview state
+      clearImagePreview();
       document.getElementById('projectForm').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Image inputs and preview handling
+  const imageUrlInput = document.getElementById('projectImageUrl');
+  const imageFileInput = document.getElementById('projectImageFile');
+  const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+  const imagePreviewEl = document.getElementById('imagePreview');
+  const changeImageBtn = document.getElementById('changeImageBtn');
+
+  // selected image data stored globally on window for simplicity
+  window.__selectedImageData = null;
+
+  function showImagePreview(src) {
+    if (!imagePreviewContainer || !imagePreviewEl) return;
+    imagePreviewEl.innerHTML = `<img src="${src}" alt="preview" style="max-width:100%;border-radius:6px;"/>`;
+    imagePreviewContainer.style.display = 'block';
+    // keep selected data
+    window.__selectedImageData = src;
+  }
+
+  function clearImagePreview() {
+    if (!imagePreviewContainer || !imagePreviewEl) return;
+    imagePreviewEl.innerHTML = '';
+    imagePreviewContainer.style.display = 'none';
+    window.__selectedImageData = null;
+    if (changeImageBtn) changeImageBtn.style.display = 'none';
+    if (imageUrlInput) imageUrlInput.value = '';
+    if (imageFileInput) imageFileInput.value = '';
+  }
+
+  if (imageUrlInput) {
+    imageUrlInput.addEventListener('input', function () {
+      const v = (this.value || '').trim();
+      if (!v) {
+        // if there is no url and no file selected, clear
+        if (!window.__selectedImageData) clearImagePreview();
+        return;
+      }
+      showImagePreview(v);
+    });
+  }
+
+  if (imageFileInput) {
+    imageFileInput.addEventListener('change', function () {
+      const file = this.files && this.files[0];
+      if (!file) return;
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (file.size > maxSize) {
+        alert('El archivo es demasiado grande. Máximo 2MB.');
+        this.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const dataUrl = ev.target.result;
+        showImagePreview(dataUrl);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (changeImageBtn) {
+    changeImageBtn.addEventListener('click', function () {
+      // allow user to pick a new image
+      clearImagePreview();
+      // show inputs already visible; focus file input
+      if (imageFileInput) imageFileInput.focus();
     });
   }
 
@@ -101,6 +172,11 @@ document.addEventListener('DOMContentLoaded', function () {
         images: [],
       };
 
+      // include image if was selected (dataURL or remote URL)
+      if (window.__selectedImageData) {
+        projectData.images = [window.__selectedImageData];
+      }
+
       try {
         if (projectId) {
           // Actualizar proyecto existente
@@ -134,6 +210,18 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('projectTech').value = (project.technologies || []).join(', ');
       document.getElementById('projectRepo').value = project.repository || '';
       document.getElementById('projectId').value = projectId;
+
+      // prefill image preview if exists
+      if (project.images && project.images.length > 0 && project.images[0]) {
+        showImagePreview(project.images[0]);
+        // when editing, set selectedImageData to current image so it remains unless changed
+        window.__selectedImageData = project.images[0];
+        // show change button so user can replace
+        const changeBtn = document.getElementById('changeImageBtn');
+        if (changeBtn) changeBtn.style.display = 'inline-block';
+      } else {
+        clearImagePreview();
+      }
 
       // Mostrar formulario
       document.getElementById('formTitle').textContent = 'Editar Proyecto';
