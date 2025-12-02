@@ -39,14 +39,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       container.innerHTML = projects.map(project => `
-        <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem;">
-          <h3 style="margin: 0 0 0.5rem; color: #111827;">${project.title}</h3>
-          <p style="margin: 0 0 0.5rem; color: #6b7280;">${project.description}</p>
-          ${project.technologies && project.technologies.length > 0 ? `<p style="margin: 0 0 0.5rem; font-size: 0.9rem; color: #9ca3af;"><strong>Tecnologías:</strong> ${project.technologies.join(', ')}</p>` : ''}
-          ${project.repository ? `<p style="margin: 0 0 0.5rem; font-size: 0.9rem;"><a href="${project.repository}" target="_blank" style="color: #2b6cb0; text-decoration: none;">Ver repositorio</a></p>` : ''}
-          <div style="display: flex; gap: 0.5rem;">
-            <button onclick="editProject('${project._id}')" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">✏️ Editar</button>
-            <button onclick="deleteProjectConfirm('${project._id}', '${project.title}')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">🗑️ Eliminar</button>
+        <div class="project-card">
+          ${project.images && project.images[0] ? `
+            <div class="project-image">
+              <img src="${project.images[0]}" alt="${(project.title||'')} preview">
+            </div>
+          ` : ''}
+          <div class="project-content">
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            ${project.technologies && project.technologies.length > 0 ? `<div class="project-technologies">${project.technologies.map(t=>`<span class="tech-badge">${t}</span>`).join('')}</div>` : ''}
+            ${project.repository ? `<p style="margin-top:0.5rem;"><a href="${project.repository}" target="_blank" style="color: #2b6cb0; text-decoration: none;">Ver repositorio</a></p>` : ''}
+            <div style="display: flex; gap: 0.5rem; margin-top:0.75rem;">
+              <button onclick="editProject('${project._id}')" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">✏️ Editar</button>
+              <button onclick="deleteProjectConfirm('${project.__id || project._id}', '${project.title}')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">🗑️ Eliminar</button>
+            </div>
           </div>
         </div>
       `).join('');
